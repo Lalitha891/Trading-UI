@@ -2,21 +2,11 @@ pipeline {
     agent any
 
     environment {
-        NODE_HOME = '/usr/bin' // Adjust if Node is in a different location
+        NODE_HOME = '/usr/bin' // or use `which node` to verify actual path
         PATH = "${NODE_HOME}:${env.PATH}"
     }
 
     stages {
-        stage('Install Node.js and PM2 (if needed)') {
-            steps {
-                sh '''
-                    which node || curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
-                    which node || apt-get install -y nodejs
-                    which pm2 || npm install -g pm2
-                '''
-            }
-        }
-
         stage('Git checkout') {
             steps {
                 git 'https://github.com/Lalitha891/Trading-UI.git'
